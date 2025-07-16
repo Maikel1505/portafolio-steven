@@ -1,41 +1,986 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portafolio de Steven</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maikel AB Fotografía</title>
+  <style>
+    /* Variables CSS */
+    :root {
+      --primary-color: #1db954;
+      --bg-dark: #121212;
+      --bg-medium: #1f1f1f;
+      --text-light: #ddd;
+      --text-medium: #bbb;
+      --text-dark: #aaa;
+      --shadow-color-primary: rgba(29, 185, 84, 0.5);
+      --shadow-color-dark: rgba(0,0,0,0.4);
+    }
+
+   /* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+    /* Header */
+    header {
+      background-color: var(--bg-medium);
+      padding:  0; /* Ajustado de 2rem 1rem */
+      text-align: center;
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    header img {
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Navegación */
+    nav {
+      background-color: #222; /* Un poco más claro que el header */
+      border-bottom: 1px solid #333;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      gap: 1.5rem; /* Ajustado de 2.5rem */
+      flex-wrap: wrap; /* Para que los elementos se envuelvan en pantallas pequeñas */
+    }
+
+    nav ul li a {
+      color: white; /* Color blanco para los enlaces de navegación */
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: var(--primary-color);
+      outline: none;
+    }
+
+    /* Contenido principal */
+    main {
+      max-width: 960px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+      flex-grow: 1;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+      padding: 0; /* Añadido padding para las secciones principales */
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid var(--primary-color);
+      padding-left: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    /* Sección Home */
+    #home {
+      padding: 2rem 0; /* Ya tenía padding inline, lo muevo aquí */
+    }
+
+    #home .video-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+    }
+
+    #home video {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--shadow-color-dark);
+    }
+
+    #home .about-me-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    #home .about-me-text {
+      flex: 1 1 400px;
+      max-width: 600px;
+      text-align: justify;
+    }
+
+    #home .profile-image-container {
+      flex: 0 1 250px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #home .profile-image-container img {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 12px var(--shadow-color-dark);
+    }
+
+    /* Sección Parallax de Servicios */
+    .parallax-section {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%); /* Centra el elemento de ancho completo */
+      padding: 4rem 0;
+      background-image: url('40.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: white;
+    }
+
+    .parallax-section .content-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .parallax-section h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: white; /* Sobrescribe el color de h2 general */
+      border-left: none; /* Elimina el borde izquierdo */
+      padding-left: 0;
+    }
+
+    .parallax-section p {
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .service-cards-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 0 1rem;
+    }
+
+    .service-card {
+      flex: 0 0 300px;
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--shadow-color-dark);
+    }
+
+    .service-card p {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    /* Sección Redes Sociales (dentro de Home) */
+    .social-media-promo {
+      margin-top: 4rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .social-media-promo h2 {
+      font-size: 1.8rem;
+      color: white;
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .social-media-promo p {
+      max-width: 600px;
+      margin: 0.5rem auto;
+      color: #ccc;
+    }
+
+    #sesiones .featured-photo-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#sesiones .featured-photo-container img {
+    width: 100%;
+    display: block;
+}
+
+
+    #sesiones .session-intro-text {
+      max-width: 800px;
+      margin: 3rem auto;
+      text-align: center;
+      color: white;
+    }
+
+    #sesiones .session-intro-text h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    #sesiones .session-intro-text p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    #sesiones .session-intro-text p:last-of-type {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    /* Galería horizontal deslizable */
+    .scroll-gallery {
+      display: flex;
+      overflow-x: auto;
+      padding: 1rem 0;
+      gap: 10px;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+      -webkit-overflow-scrolling: touch; /* iOS Safari */
+    }
+
+    .scroll-gallery::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    .scroll-gallery img {
+      height: 400px;
+      width: auto;
+      object-fit: cover;
+      flex-shrink: 0;
+      border-radius: 10px;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+
+    .scroll-gallery img:hover {
+      opacity: 1;
+    }
+
+    /* Sección de Opciones de Sesión (antes con ID duplicado) */
+    #planes-sesiones {
+      background-color: black; /* bg-black */
+      color: white; /* text-white */
+      padding: 0; /* px-6 py-12 */
+      text-align: center;
+    }
+
+    #planes-sesiones .max-w-5xl {
+      max-width: 80rem; /* Equivalente a max-w-5xl de Tailwind (80rem = 1280px) */
+      margin-left: auto; /* mx-auto */
+      margin-right: auto; /* mx-auto */
+    }
+
+    #planes-sesiones h2 {
+      font-size: 2.25rem; /* text-3xl */
+      font-weight: 600; /* font-semibold */
+      margin-bottom: 1rem; /* mb-4 */
+      text-transform: uppercase; /* uppercase */
+      letter-spacing: 0.05em; /* tracking-wide */
+      color: white; /* Asegura el color blanco */
+      border-left: none; /* Elimina el borde izquierdo */
+      padding-left: 0;
+    }
+
+    #planes-sesiones p {
+      margin-bottom: 2.5rem; /* mb-10 */
+      font-size: 1.125rem; /* text-lg */
+    }
+
+    #planes-sesiones .session-options-grid {
+      display: flex; /* flex */
+      gap: 1.5rem; /* gap-6 */
+      overflow-x: auto; /* overflow-x-auto */
+      padding: 0 1rem; /* px-4 */
+      width: 100%; /* w-full */
+    }
+
+    .session-option-card {
+      background-color: white; /* bg-white */
+      color: black; /* text-black */
+      border-radius: 0.5rem; /* rounded-lg */
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); /* shadow-lg */
+      padding: 1.5rem; /* p-6 */
+      width: 300px; /* w-[300px] */
+      flex-shrink: 0; /* flex-shrink-0 */
+    }
+
+    .session-option-card img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 0.5rem; /* rounded-lg */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); /* shadow-md */
+      margin-bottom: 1rem; /* mb-4 */
+    }
+
+    .session-option-card h3 {
+      font-size: 1.5rem; /* text-2xl */
+      font-weight: 600; /* font-semibold */
+      margin-bottom: 0.75rem; /* mb-3 */
+      text-transform: uppercase; /* uppercase */
+      letter-spacing: 0.05em; /* tracking-wide */
+    }
+
+    .session-option-card p {
+      margin-bottom: 1rem; /* mb-4 */
+      font-size: 1rem; /* Asegura el tamaño de fuente */
+    }
+
+    .session-option-card ul {
+      list-style-type: disc; /* list-disc */
+      list-style-position: inside; /* list-inside */
+      margin-bottom: 1rem; /* mb-4 */
+      text-align: left; /* Alinea la lista a la izquierda */
+    }
+
+    .session-option-card button {
+      background-color: black; /* bg-black */
+      color: white; /* text-white */
+      padding: 0.5rem 1.25rem; /* px-5 py-2 */
+      border-radius: 0.25rem; /* rounded */
+      transition: background-color 0.3s ease; /* transition */
+      border: none; /* Eliminar borde por defecto del botón */
+      cursor: pointer;
+    }
+
+    .session-option-card button:hover {
+      background-color: #333; /* hover:bg-gray-800 */
+    }
+
+    /* Extras y condiciones */
+    .conditions-box {
+      margin: 40px auto;
+      max-width: 800px;
+      padding: 20px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+    .conditions-box h3 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+/* Sección del portafolio */
+#portafolio {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+}
+
+/* Galería en rejilla */
+#portafolio .gallery {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 columnas exactas */
+  gap: 1px;
+  width: 100%;
+  padding: 0;
+}
+
+/* Imágenes dentro de la galería */
+#portafolio .gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(130%) contrast(60%);
+  opacity: 0.85;
+  transition: filter 0.4s ease, opacity 0.3s ease;
+  cursor: pointer;
+  border-radius: 0;
+}
+body.lightbox-active #portafolio .gallery img {
+  filter: none !important;
+  opacity: 1 !important;
+  pointer-events: none; /* para evitar volver a hacer clic sobre las miniaturas */
+}
+
+#portafolio .gallery img:hover {
+  filter: brightness(100%) contrast(100%);
+  opacity: 1;
+}
+
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#lightbox.hidden {
+  display: none;
+}
+
+#lightbox-img {
+ max-width: 55vh;
+  max-height: 90vh;
+  object-fit: contain;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+#closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+
+    /* Videos */
+    #videos iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px var(--primary-color);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    /* Diseño gráfico */
+    #diseno .project {
+      background: #222;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(29, 185, 84, 0.4);
+      color: #ccc;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--bg-medium);
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-top: 3px solid var(--primary-color);
+      color: var(--text-dark);
+      margin-top: auto; /* Empuja el footer al final de la página */
+    }
+
+    footer .social {
+      margin-bottom: 0.7rem;
+    }
+
+    footer .social a {
+      margin: 0 1rem;
+      color: var(--text-medium);
+      transition: color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    footer .social a:hover,
+    footer .social a:focus {
+      color: var(--primary-color);
+      outline: none;
+    }
+
+    footer .social a svg {
+      fill: currentColor;
+      width: 24px;
+      height: 24px;
+      transition: fill 0.3s ease;
+    }
+
+    /* Responsive */
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+    }
+
+    .lightbox-content {
+      display: block;
+      margin: 0 auto;
+      max-width: 90%;
+      max-height: 80%;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+    }
+
+    .prev-btn, .next-btn {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-size: 30px;
+      transition: 0.3s;
+      user-select: none;
+    }
+
+    .prev-btn {
+      left: 0;
+    }
+
+    .next-btn {
+      right: 0;
+    }
+    @media (max-width: 768px) { /* Ajuste para tabletas y móviles */
+      main {
+        margin: 1rem auto 2rem;
+      }
+      section {
+        padding:  0;
+      }
+      #home .about-me-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      #home .about-me-text {
+        max-width: 100%;
+      }
+      .parallax-section .content-wrapper {
+        padding: 0 ;
+      }
+      .service-cards-container {
+        justify-content: flex-start; /* Alinea a la izquierda para el scroll */
+      }
+      .session-options-grid {
+        justify-content: flex-start; /* Alinea a la izquierda para el scroll */
+      }
+      #planes-sesiones h2 {
+        font-size: 1.75rem; /* md:text-4xl */
+      }
+      #planes-sesiones p {
+        font-size: 1rem; /* md:text-xl */
+      }
+      @media (max-width: 900px) {
+  #portafolio .gallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  #portafolio .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+      
+    }
+
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 0;
+      }
+      #videos iframe {
+        height: 200px;
+      }
+    }
+    
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Steven Antamba</h1>
-    <nav>
-      <a href="#fotografia">Fotografía</a>
-      <a href="#video">Video</a>
-      <a href="#diseno">Diseño Gráfico</a>
-    </nav>
-  </header>
 
-  <section id="fotografia">
-    <h2>Fotografía</h2>
-    <img src="images/foto1.jpg" alt="Foto 1">
-    <!-- Más fotos -->
+<header>
+  <img src="LOGOO_Mesa de trabajo 1.png" alt="Logotipo Maikel AB Fotografía" />
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#sesiones">Sesiones de fotos</a></li>
+      <li><a href="#portafolio">Portafolio</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#diseno">Diseño gráfico</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section id="home" class="section">
+    <!-- Video principal en autoplay y loop -->
+    <div class="video-container">
+      <video autoplay loop muted playsinline>
+        <source src="Angelo.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+      </video>
+    </div>
+
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1.5rem; border-left: none; padding-left: 0; color: var(--text-light);">
+      Conoce un poco más sobre mi pasión por la fotografía
+    </h2>
+
+    <div class="about-me-content">
+      <!-- Texto a la izquierda -->
+      <div class="about-me-text">
+        <p>
+          Mi nombre es Steven Antamba, soy fotógrafo profesional y te doy la bienvenida a mi página web.
+        </p>
+        <p>
+          Me dedico a la fotografía desde hace 2 años, habiéndome especializado en publicidad, retrato y contenido visual creativo. He trabajado con marcas, personas y proyectos diversos que me han llevado a explorar la belleza en todas sus formas.
+        </p>
+        <p>
+          He compartido lo que aprendo mediante redes, talleres y colaboraciones. Mi trabajo refleja esa pasión constante por mejorar y compartir.
+        </p>
+        <p>
+          Ahora, he dado un paso más: ofrezco inspiración y servicios para ayudarte a ti también a descubrir lo que puedes lograr con una cámara y tu visión.
+        </p>
+        <p>
+          Gracias por visitar este espacio, espero que encuentres aquí algo que te inspire.
+        </p>
+      </div>
+
+      <!-- Imagen circular a la derecha -->
+      <div class="profile-image-container">
+        <img src="Maikel.jpeg" alt="Foto de perfil de Steven Antamba" />
+      </div>
+    </div>
+
+    <!-- Sección con fondo parallax -->
+    <section class="parallax-section">
+      <div class="content-wrapper">
+        <h2>
+          ENCUENTRA EL SERVICIO QUE ESTABAS BUSCANDO
+        </h2>
+        <p>
+          Descubre los servicios profesionales que tengo para ofrecerte: sesiones de fotos personalizadas, producción de video y diseño gráfico creativo.
+        </p>
+
+        <!-- Las 3 tarjetas horizontales -->
+        <div class="service-cards-container">
+          <!-- Tarjeta 1 -->
+          <div class="service-card">
+            <img src="sesionfotos.jpeg" alt="Sesiones de fotos" />
+            <p>
+              Captura momentos únicos con un enfoque creativo y profesional. Realizo sesiones personalizadas para retratos, parejas, eventos especiales y contenido para marcas.
+            </p>
+          </div>
+
+          <!-- Tarjeta 2 -->
+          <div class="service-card">
+            <img src="Video.jpeg" alt="Producción de video" />
+            <p>
+              Desde videoclips hasta reels impactantes para redes sociales, cuento historias visuales que conectan con tu audiencia. Producción completa: grabación, edición y dirección creativa.
+            </p>
+          </div>
+
+          <!-- Tarjeta 3 -->
+          <div class="service-card">
+            <img src="diseño.jpeg" alt="Diseño gráfico" />
+            <p>
+              Transformo tus ideas en piezas visuales atractivas. Diseño de identidad, flyers, banners, contenido para redes y más, con un enfoque limpio, moderno y funcional.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección: Redes sociales -->
+    <div class="social-media-promo">
+      <h2>DESCUBRE MÁS SOBRE STEVEN ANTAMBA EN REDES SOCIALES</h2>
+      <p>
+        Te invito a seguirme y conocer más de mi trabajo día a día. Subo contenido exclusivo, detrás de cámaras, consejos y mucho más sobre fotografía, diseño y estilo de vida creativo.
+      </p>
+    </div>
   </section>
 
-  <section id="video">
-    <h2>Video</h2>
-    <video controls src="videos/video1.mp4"></video>
-    <!-- Más videos -->
+
+  <section id="sesiones" class="section" style="display: none;">
+    <div class="featured-photo-container">
+      <img src="beren-21portada.jpg" alt="Sesión de foto destacada" />
+    </div>
+    <div class="session-intro-text">
+      <h3>
+        SESIONES FOTOGRÁFICAS: INMORTALIZA UN RECUERDO PARA TODA LA VIDA
+      </h3>
+      <p>
+        Una sesión fotográfica es un recuerdo imborrable para ti y los tuyos.<br><br>
+        Una sesión fotográfica es algo que todos deberíamos vivir una vez en la vida.
+        Es la única forma que existe de parar el tiempo y el mejor recuerdo que podemos tener de un tiempo pasado.<br><br>
+        Además, puede convertirse en el regalo ideal para tus seres queridos. ¿Por qué no regalar una sesión de fotos?
+      </p>
+      <p>
+        Ahora puedes reservar una sesión de fotos para ti o para quien tú quieras.
+      </p>
+    </div>
+
+    <!-- Galería horizontal deslizable -->
+    <div class="scroll-gallery">
+      <img src="aracel.jpg" alt="Foto de sesión 1">
+      <img src="aracely.jpg" alt="Foto de sesión 2">
+      <img src="Shina2.jpg" alt="Foto de sesión 3">
+      <img src="ale.jpg" alt="Foto de sesión 4">
+      <img src="anahii12.jpg" alt="Foto de sesión 5">
+      <img src="beren2x.jpg" alt="Foto de sesión 6">
+    </div>
+
+    <!-- Sección de Opciones de Sesión (antes con ID duplicado) -->
+    <section id="planes-sesiones">
+      <div class="max-w-5xl">
+        <h2>
+          ESCOGE LA OPCIÓN QUE MEJOR SE ADAPTE
+        </h2>
+        <p>
+          Esta sesión está diseñada para crear imágenes profesionales y con estilo, que podrás usar para tus redes sociales, páginas web o para promocionarte.
+        </p>
+        <div class="session-options-grid">
+          <!-- Tarjeta 1 -->
+          <div class="session-option-card">
+            <img src="aracel.jpg" alt="Sesión de estudio con fondo blanco" />
+            <h3>Opción 1</h3>
+            <p>Sesión de fotos en estudio con fondo blanco. Ideal para retratos y fotografías de producto.</p>
+            <ul>
+              <li>Duración: 1 hora</li>
+              <li>Entrega: 20 fotos editadas</li>
+              <li>Incluye maquillaje básico</li>
+            </ul>
+            <button>Reservar</button>
+          </div>
+
+          <!-- Tarjeta 2 -->
+          <div class="session-option-card">
+            <img src="beren2x.jpg" alt="Sesión al aire libre en locaciones naturales" />
+            <h3>Opción 2</h3>
+            <p>Sesión al aire libre en locaciones naturales. Perfecta para fotos espontáneas y con ambiente.</p>
+            <ul>
+              <li>Duración: 2 horas</li>
+              <li>Entrega: 40 fotos editadas</li>
+              <li>Incluye asesoría de vestuario</li>
+            </ul>
+            <button>Reservar</button>
+          </div>
+
+          <!-- Tarjeta 3 -->
+          <div class="session-option-card">
+            <img src="ale.jpg" alt="Sesión personalizada con fondo de color o props" />
+            <h3>Opción 3</h3>
+            <p>Sesión personalizada con fondo de color o props especiales. Ideal para campañas o branding.</p>
+            <ul>
+              <li>Duración: 1.5 horas</li>
+              <li>Entrega: 30 fotos editadas</li>
+              <li>Incluye 2 cambios de vestuario</li>
+            </ul>
+            <button>Reservar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nuevo bloque para extras y condiciones -->
+    <div class="conditions-box">
+      <h3 style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 15px; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px;">
+        Extras y condiciones
+      </h3>
+      <p style="line-height: 1.6;">
+        Las sesiones fotográficas se harán dentro de la provincia de Alicante. 
+        Para otras localizaciones, consultar previamente.
+      </p>
+    </div>
   </section>
 
-  <section id="diseno">
-    <h2>Diseño Gráfico</h2>
-    <img src="images/diseno1.jpg" alt="Diseño 1">
-    <!-- Más diseños -->
+  <section id="portafolio" class="section" style="display: none;">
+    <div class="gallery">
+      <!-- Añade más imágenes aquí para tu portafolio real -->
+      <img src="ale.jpg" alt="Foto 1">
+    <img src="anahii12.jpg" alt="Foto 1">
+    <img src="Shina2.jpg" alt="Foto 1">
+    <img src="beren2x.jpg" alt="Foto 1">
+    <img src="ascx.jpg" alt="Foto 1">
+    <img src="aracely.jpg" alt="Foto 1">
+    <img src="al-15.jpg" alt="Foto 1">
+    <img src="Mela45.jpg" alt="Foto 1">
+    <img src="Josexd.jpg" alt="Foto 1">
+    <img src="al-19.jpg" alt="Foto 1">
+    <img src="ZZ-.jpg" alt="Foto 1">
+    <img src="Rey  1-27.jpg" alt="Foto 1">
+    <img src="ale.jpg" alt="Foto 1">
+    <div id="lightbox" class="hidden">
+  <span id="closeBtn">&times;</span>
+  <img id="lightbox-img" src="" alt="Imagen ampliada">
+</div>
+
+
+          
+      
+    </div>
   </section>
 
-  <footer>
-    <p>© 2025 Steven Antamba</p>
-  </footer>
-</body>
+  <section id="videos" class="section" style="display: none;">
+    <h2>Videos</h2>
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/another_video_id" title="Otro video de YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- Añade más iframes de tus videos aquí -->
+  </section>
+
+  <section id="diseno" class="section" style="display: none;">
+    <h2>Diseño gráfico</h2>
+    <div class="project">
+      <h3>Proyecto de Identidad de Marca</h3>
+      <p>Desarrollo completo de logotipo, paleta de colores y tipografía para una nueva startup.</p>
+      <p>Enfoque en la simplicidad y la memorabilidad para una conexión instantánea con el público objetivo.</p>
+      <!-- Puedes añadir una imagen de ejemplo aquí -->
+      <!-- <img src="diseno-ejemplo.jpg" alt="Ejemplo de proyecto de diseño gráfico" style="width: 100%; border-radius: 8px; margin-top: 1rem;"> -->
+    </div>
+    <div class="project" style="margin-top: 1.5rem;">
+      <h3>Diseño de Materiales Publicitarios</h3>
+      <p>Creación de flyers, banners digitales y posts para redes sociales para una campaña de lanzamiento de producto.</p>
+      <p>Diseño visualmente atractivo y coherente con la identidad de marca para maximizar el impacto.</p>
+    </div>
+  </section>
+
+  <section id="contacto" class="section" style="display: none;">
+    <h2>Contacto</h2>
+    <p>Puedes escribirme directamente a mis redes sociales o por correo electrónico.</p>
+    <p>Email: <a href="mailto:tu.email@example.com" style="color: var(--primary-color); text-decoration: none;">tu.email@example.com</a></p>
+    <p>Teléfono: <a href="tel:+1234567890" style="color: var(--primary-color); text-decoration: none;">+1 (234) 567-890</a></p>
+    <!-- Puedes añadir un formulario de contacto aquí si lo deseas -->
+  </section>
+</main>
+
+<footer>
+  <div class="social" role="navigation" aria-label="Redes sociales">
+    <a href="https://www.facebook.com/maikel.aj.104" target="_blank" rel="noopener" aria-label="Facebook">
+      <!-- Icono Facebook SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#bbb" viewBox="0 0 24 24" >
+        <path d="M22.675 0h-21.35C.6 0 0 .6 0 1.325v21.351C0 23.4.6 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.466.099 2.797.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.59l-.467 3.622h-3.123V24h6.116c.725 0 1.325-.6 1.325-1.324V1.325C24 .6 23.4 0 22.675 0z"/>
+      </svg>
+    </a>
+    <a href="https://www.instagram.com/maiikelkn/" target="_blank" rel="noopener" aria-label="Instagram">
+      <!-- Icono Instagram SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#bbb" viewBox="0 0 24 24">
+        <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm8.75 1.5a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/>
+      </svg>
+    </a>
+    <a href="https://www.tiktok.com/@maiikelkn" target="_blank" rel="noopener" aria-label="TikTok">
+      <!-- Icono TikTok SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#bbb" viewBox="0 0 24 24">
+        <path d="M9 3h3.75a4.25 4.25 0 004.25 4.25v3.75a7.5 7.5 0 11-7.5-7.5z"/>
+      </svg>
+    </a>
+  </div>
+  <p>© 2025 Maikel AB Fotografía</p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Función para mostrar una sección y ocultar las demás
+    function showSection(targetId) {
+      document.querySelectorAll('main .section').forEach(sec => {
+        sec.style.display = 'none';
+      });
+
+      const secciónParaMostrar = documento.getElementById(targetId);
+      si (secciónParaMostrar) {
+        secciónParaMostrar.estilo.visualizar = 'bloquear';
+        ventana.desplazarse hasta({ top: 0, comportamiento: 'suave' });
+      }
+    }
+
+    // Manejar clics en los enlaces de navegación
+    documento.Selector de consultasTodos('nave a').para cada uno(link => {
+      link.addEventListener('clic', función(e) {
+        e.PrevenirPredeterminado();
+        const objetivo = esto.obtener atributo('href').substring(1); // obtener el id sin el "#"
+        másSección(objetivo);
+      });
+    });
+
+    // Mostrar la sección 'hogar' por defecto al cargar la página
+    másSección('hogar');
+  });
+
+  const galeríaImágenes = documento.Selector de consultasTodos('#portafolio .imagen de galería');
+  const caja de luz = documento.getElementById('caja de luz');
+  const Caja de luzImg = documento.getElementById('lightbox-img');
+  const cerrarBtn = documento.getElementById('cerrarBtn');
+  dejar Índice real= 0;
+  función mostrar imagen(Índice) {
+    Índice real = Índice;
+    Caja de luzImg.src = galeríaImágenes[Índice real].src;
+    caja de luz.lista de clases.eliminatorio('oculto');
+  }
+
+    // Abrir imagen
+    galeríaImágenes.para cada uno((img, Índice) => {
+      img.addEventListener('clic', () => {
+        mostrar imagen(Índice);
+         documento.cuervo.lista de clases.agregar('caja de luz activa');
+      });
+    });
+
+    // Cerrar con botón
+    cerrarBtn.addEventListener('clic', () => {
+      caja de luz.lista de clases.agregar('oculto');
+      documento.cuervo.lista de clases.eliminatorio('caja de luz activa'); 
+    });
+
+    // Navegación con flechas
+    documento.addEventListener('tecla abajo', (e) => {
+      si (caja de luz.lista de clases.contiene('oculto')) retorno;
+
+      si (e.clave === 'Flecha derecha') {
+        Índice real = (Índice real + 1) % galeríaImágenes.longitud;
+        mostrar imagen(Índice real);
+      } else si (e.clave === 'FlechaIzquierda') {
+        Índice real = (Índice actual - 1 + galeríaImágenes.longitud) % galeríaImágenes.longitud;
+        mostrar imagen(Índice real);
+      } else si (e.clave === 'Escape') {
+        caja de luz.lista de clases.agregar('oculto');
+         documento.cuervo.lista de clases.eliminatorio('caja de luz activa');
+      }
+    });
+</script>
+</cuervo>
 </html>
